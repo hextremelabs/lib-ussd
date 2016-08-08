@@ -1,33 +1,30 @@
 package com.hextremelabs.ussd.lib.rpc;
 
 import com.hextremelabs.ussd.lib.dto.UssdRequest;
-import static com.hextremelabs.ussd.lib.dto.UssdRequest.fromParameters;
 import com.hextremelabs.ussd.lib.exception.InvocationException;
 import com.hextremelabs.ussd.lib.exception.UINavigationException;
 import com.hextremelabs.ussd.lib.exception.ValidationException;
 import com.hextremelabs.ussd.lib.handler.UssdHandler;
-import static com.hextremelabs.ussd.lib.internal.Internal.DataHelper.hasBlank;
 import com.hextremelabs.ussd.lib.internal.Internal.Log;
 import com.hextremelabs.ussd.lib.session.Session;
 import com.hextremelabs.ussd.lib.session.SessionManager;
+import com.hextremelabs.ussd.lib.ui.manager.UIManager;
 import com.hextremelabs.ussd.lib.ui.model.Option;
 import com.hextremelabs.ussd.lib.ui.model.Screen;
-import static com.hextremelabs.ussd.lib.ui.model.ScreenType.DISPLAY;
-import static com.hextremelabs.ussd.lib.ui.model.Validation.FREE;
-import static com.hextremelabs.ussd.lib.ui.model.Validation.REGEX;
-import com.hextremelabs.ussd.lib.ui.manager.UIManager;
-import java.util.ArrayList;
-import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.hextremelabs.ussd.lib.dto.UssdRequest.fromParameters;
+import static com.hextremelabs.ussd.lib.internal.Internal.DataHelper.hasBlank;
+import static com.hextremelabs.ussd.lib.ui.model.ScreenType.DISPLAY;
+import static com.hextremelabs.ussd.lib.ui.model.Validation.FREE;
 
 /**
  * JAX-RS endpoint for receiving and processing HTTP requests (SMS/USSD) from telco. The request is assumed to come with
@@ -162,7 +159,7 @@ public class Endpoint {
     String regex = null;
     switch (screen.getValidation()) {
       case REGEX:
-        regex = screen.getRegex();
+        regex = screen.getRegex() == null ? ".*" : screen.getRegex();
         break;
       case NUMERIC:
         regex = "\\d+";

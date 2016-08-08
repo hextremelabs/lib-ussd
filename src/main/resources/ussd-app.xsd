@@ -3,57 +3,279 @@
            xmlns:hxl="http://dev.hextremelabs.net"
            xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <xs:simpleType name="screenType" final="restriction" >
+  <xs:simpleType name="screenType" final="restriction">
+    <xs:annotation>
+      <xs:appinfo>Screen Type</xs:appinfo>
+      <xs:documentation xml:lang="en">
+        The available screen types.
+      </xs:documentation>
+    </xs:annotation>
     <xs:restriction base="xs:string">
-        <xs:enumeration value="options" />
-        <xs:enumeration value="textInput" />
-        <xs:enumeration value="display" />
+      <xs:enumeration value="options">
+        <xs:annotation>
+          <xs:appinfo>Options</xs:appinfo>
+          <xs:documentation xml:lang="en">
+            Standard USSD menu with a numbered list of options.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="textInput">
+        <xs:annotation>
+          <xs:appinfo>Text Input</xs:appinfo>
+          <xs:documentation xml:lang="en">
+            USSD screen that asks the user to input a text e.g bank account number.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="display">
+        <xs:annotation>
+          <xs:appinfo>Display</xs:appinfo>
+          <xs:documentation xml:lang="en">
+            Screen that only displays a result and does not accept any input. A display screen is considered the end of
+            a flow and therefore terminates the user session.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
-  <xs:simpleType name="validation" final="restriction" >
+
+  <xs:simpleType name="validation" final="restriction">
+    <xs:annotation>
+      <xs:appinfo>Validation Constraint</xs:appinfo>
+      <xs:documentation xml:lang="en">
+        The available validation constraints. If not specified, the default is "free".
+      </xs:documentation>
+    </xs:annotation>
     <xs:restriction base="xs:string">
-        <xs:enumeration value="numeric" />
-        <xs:enumeration value="alphanumeric" />
-        <xs:enumeration value="regex" />
-        <xs:enumeration value="free" />
+      <xs:enumeration value="numeric">
+        <xs:annotation>
+          <xs:appinfo>Numeric Constraint</xs:appinfo>
+          <xs:documentation xml:lang="en">
+            Only numeric input is permitted. The input can be of any length but it must only contain characters 0 to 9.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="alphanumeric">
+        <xs:annotation>
+          <xs:appinfo>Alphanumeric Constraint</xs:appinfo>
+          <xs:documentation xml:lang="en">
+            Any number of alphanumeric characters (a-z, A-Z and 0-9) are permitted.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="regex">
+        <xs:annotation>
+          <xs:appinfo>Regular Expression Constraint</xs:appinfo>
+          <xs:documentation xml:lang="en">
+            Input must conform to the regular expression specified as attribute "regex". If the "regex" attribute is not
+            specified, the validation is ignored.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="free">
+        <xs:annotation>
+          <xs:appinfo>Free (No Constraint)</xs:appinfo>
+          <xs:documentation xml:lang="en">
+            No validation is performed.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
+
   <xs:element name="ussd-app">
+    <xs:annotation>
+      <xs:appinfo>USSD App</xs:appinfo>
+      <xs:documentation xml:lang="en">
+        The user interface model.
+      </xs:documentation>
+    </xs:annotation>
     <xs:complexType>
       <xs:sequence>
         <xs:element name="screen" maxOccurs="unbounded" minOccurs="1">
+          <xs:annotation>
+            <xs:appinfo>Screen</xs:appinfo>
+            <xs:documentation xml:lang="en">
+              A page of data. This can represent a list of USSD options, a page that requests for input or a page that
+              simply displays a message. Occurrences of %s in any of the child elements will be sequentially
+              interpolated with the elements of the result of the callback of the previous screen.
+            </xs:documentation>
+          </xs:annotation>
           <xs:complexType>
             <xs:sequence>
-              <xs:element type="xs:string" name="header"/>
+              <xs:element type="xs:string" name="header">
+                <xs:annotation>
+                  <xs:appinfo>Header</xs:appinfo>
+                  <xs:documentation xml:lang="en">
+                    The text at the top of the page.
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
               <xs:element name="option" maxOccurs="unbounded" minOccurs="0">
+                <xs:annotation>
+                  <xs:appinfo>Options</xs:appinfo>
+                  <xs:documentation xml:lang="en">
+                    A list of options to be displayed (for screens with type "option").
+                  </xs:documentation>
+                </xs:annotation>
                 <xs:complexType>
                   <xs:simpleContent>
                     <xs:extension base="xs:string">
-                      <xs:attribute type="xs:byte" name="trigger" use="required"/>
-                      <xs:attribute type="xs:string" name="nextScreen" use="required"/>
+                      <xs:attribute type="xs:byte" name="trigger" use="required">
+                        <xs:annotation>
+                          <xs:appinfo>Trigger</xs:appinfo>
+                          <xs:documentation xml:lang="en">
+                            The user input that will trigger this option. This is usually a number and it is rendered in
+                            the UI so the user knows what to press.
+                          </xs:documentation>
+                        </xs:annotation>
+                      </xs:attribute>
+                      <xs:attribute type="xs:string" name="nextScreen" use="required">
+                        <xs:annotation>
+                          <xs:appinfo>Next Screen</xs:appinfo>
+                          <xs:documentation xml:lang="en">
+                            The screen that this option leads to.
+                          </xs:documentation>
+                        </xs:annotation>
+                      </xs:attribute>
                     </xs:extension>
                   </xs:simpleContent>
                 </xs:complexType>
               </xs:element>
-              <xs:element type="xs:string" name="body" minOccurs="0" maxOccurs="1"/>
-              <xs:element type="xs:string" name="footer" minOccurs="0" maxOccurs="1"/>
+              <xs:element type="xs:string" name="body" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:appinfo>Body</xs:appinfo>
+                  <xs:documentation xml:lang="en">
+                    The text at the center of the page.
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element type="xs:string" name="footer" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:appinfo>Footer</xs:appinfo>
+                  <xs:documentation xml:lang="en">
+                    The text displayed at the bottom of the page.
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
             </xs:sequence>
-            <xs:attribute type="xs:string" name="id" use="required"/>
-            <xs:attribute type="hxl:screenType" name="type" use="required"/>
-            <xs:attribute type="hxl:validation" name="validation" use="optional"/>
-            <xs:attribute type="xs:string" name="regex" use="optional"/>
-            <xs:attribute type="xs:string" name="callback" use="optional"/>
-            <xs:attribute type="xs:string" name="nextScreen" use="optional"/>
+            <xs:attribute type="xs:string" name="id" use="required">
+              <xs:annotation>
+                <xs:appinfo>Error Message</xs:appinfo>
+                <xs:documentation xml:lang="en">
+                  Identifies a screen. Other screens or menus leading to this screen reference this id.
+                </xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="hxl:screenType" name="type" use="required">
+              <xs:annotation>
+                <xs:appinfo>Screen Type</xs:appinfo>
+                <xs:documentation xml:lang="en">
+                  The type of the screen.
+                </xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="hxl:validation" name="validation" use="optional">
+              <xs:annotation>
+                <xs:appinfo>Validation</xs:appinfo>
+                <xs:documentation xml:lang="en">
+                  The validation constraint applied to the input received by this screen (this only applies to screens
+                  of type "textInput").
+                </xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="regex" use="optional">
+              <xs:annotation>
+                <xs:appinfo>Regular Expression</xs:appinfo>
+                <xs:documentation xml:lang="en">
+                  The regular expression used for validating the input from a screen (this only applies to "textInput"
+                  screens with validation "regex").
+                </xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="callback" use="optional">
+              <xs:annotation>
+                <xs:appinfo>Error Message</xs:appinfo>
+                <xs:documentation xml:lang="en">
+                  The operation invoked when the user completes this screen. All the data and results gathered so far in
+                  the user's session is passed along with the callback name to the callback handler for execution.
+                </xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="nextScreen" use="optional">
+              <xs:annotation>
+                <xs:appinfo>Next Screen</xs:appinfo>
+                <xs:documentation xml:lang="en">
+                  The screen that this screen leads to. Please note that this attribute is ignored for screens of type
+                  "display" because they represent the end of a flow and terminate the active user session.
+                </xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
           </xs:complexType>
         </xs:element>
       </xs:sequence>
-      <xs:attribute type="xs:string" name="name" use="required"/>
-      <xs:attribute type="xs:string" name="lineSeparator" use="optional"/>
-      <xs:attribute type="xs:string" name="commandOpener" use="optional"/>
-      <xs:attribute type="xs:string" name="commandSeparator" use="optional"/>
-      <xs:attribute type="xs:string" name="commandTerminator" use="optional"/>
-      <xs:attribute type="xs:string" name="errorMessage" use="optional"/>
-      <xs:attribute type="xs:byte" name="maxTextLength" use="optional"/>
+      <xs:attribute type="xs:string" name="name" use="required">
+        <xs:annotation>
+          <xs:appinfo>Name</xs:appinfo>
+          <xs:documentation xml:lang="en">
+            The name of the USSD application.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute type="xs:string" name="lineSeparator" use="optional">
+        <xs:annotation>
+          <xs:appinfo>Line Separator</xs:appinfo>
+          <xs:documentation xml:lang="en">
+            THe line separator required by the specific telco. If not specified a tilde (~) is used by default.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute type="xs:string" name="commandOpener" use="optional">
+        <xs:annotation>
+          <xs:appinfo>Command Opener</xs:appinfo>
+          <xs:documentation xml:lang="en">
+            The character that starts this service's USSD code. E.g for #124# the command opener is *. If this attribute
+            is not specified, * is used by default.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute type="xs:string" name="commandSeparator" use="optional">
+        <xs:annotation>
+          <xs:appinfo>Command Separator</xs:appinfo>
+          <xs:documentation xml:lang="en">
+            The character that separates commands (in cases of concatenated command e.g *123*4*5*6#). If this attribute
+            is not specified, * is used by default.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute type="xs:string" name="commandTerminator" use="optional">
+        <xs:annotation>
+          <xs:appinfo>Command Terminator</xs:appinfo>
+          <xs:documentation xml:lang="en">
+            The character that terminates a command. E.g for *556# the command terminator is #. If a command ends with
+            this character the character is ignored and not interpreted as part of the command. If this attribute is not
+            specified, # is used by default.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute type="xs:string" name="errorMessage" use="optional">
+        <xs:annotation>
+          <xs:appinfo>Error Message</xs:appinfo>
+          <xs:documentation xml:lang="en">
+            The message returned when an error occurs while invoking a callback. Such errors terminate the user session.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute type="xs:byte" name="maxTextLength" use="optional">
+        <xs:annotation>
+          <xs:appinfo>Maximum Response Length</xs:appinfo>
+          <xs:documentation xml:lang="en">
+            The maximum length of a USSD response acceptable by the telco. If the intended response (whether a rendered
+            screen or an error message) is longer than the max length, it is truncated (with a trailing ellipsis
+            indicating the truncation). If this attribute is not specified, 140 is used by default.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
     </xs:complexType>
   </xs:element>
 </xs:schema>
