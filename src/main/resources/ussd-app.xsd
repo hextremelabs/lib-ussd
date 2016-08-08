@@ -1,0 +1,59 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           targetNamespace="http://dev.hextremelabs.net"
+           xmlns:hxl="http://dev.hextremelabs.net"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:simpleType name="screenType" final="restriction" >
+    <xs:restriction base="xs:string">
+        <xs:enumeration value="options" />
+        <xs:enumeration value="textInput" />
+        <xs:enumeration value="display" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="validation" final="restriction" >
+    <xs:restriction base="xs:string">
+        <xs:enumeration value="numeric" />
+        <xs:enumeration value="alphanumeric" />
+        <xs:enumeration value="regex" />
+        <xs:enumeration value="free" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ussd-app">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="screen" maxOccurs="unbounded" minOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="header"/>
+              <xs:element name="option" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute type="xs:byte" name="trigger" use="required"/>
+                      <xs:attribute type="xs:string" name="nextScreen" use="required"/>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+              <xs:element type="xs:string" name="body" minOccurs="0" maxOccurs="1"/>
+              <xs:element type="xs:string" name="footer" minOccurs="0" maxOccurs="1"/>
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="id" use="required"/>
+            <xs:attribute type="hxl:screenType" name="type" use="required"/>
+            <xs:attribute type="hxl:validation" name="validation" use="optional"/>
+            <xs:attribute type="xs:string" name="regex" use="optional"/>
+            <xs:attribute type="xs:string" name="callback" use="optional"/>
+            <xs:attribute type="xs:string" name="nextScreen" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute type="xs:string" name="name" use="required"/>
+      <xs:attribute type="xs:string" name="lineSeparator" use="optional"/>
+      <xs:attribute type="xs:string" name="commandOpener" use="optional"/>
+      <xs:attribute type="xs:string" name="commandSeparator" use="optional"/>
+      <xs:attribute type="xs:string" name="commandTerminator" use="optional"/>
+      <xs:attribute type="xs:string" name="errorMessage" use="optional"/>
+      <xs:attribute type="xs:byte" name="maxTextLength" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
