@@ -63,13 +63,6 @@
       <version>1.10.19</version>
       <scope>test</scope>
     </dependency>
-
-    <!-- Compile Scope -->
-    <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-      <version>2.4</version>
-    </dependency>
   </dependencies>
 
   <build>

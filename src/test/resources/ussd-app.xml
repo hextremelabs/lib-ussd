@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ussd-app name="TEST"
+          xmlns="http://dev.hextremelabs.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dev.hextremelabs.net http://dev.hextremelabs.net/ussd-app.xsd">
+  
+  <screen id="home" type="options">
+    <header>Welcome</header>
+    <option trigger="1" nextScreen="nameInput">Greet Me</option>
+    <option trigger="2" nextScreen="goodbye">Exit</option>
+  </screen>
+
+  <screen id="nameInput" type="textInput" validation="alphanumeric" callback="greetMe"
+          nextScreen="greetings">
+    <header>Lib-USSD</header>
+    <body>What is your name?</body>
+  </screen>
+  <screen id="greetings" type="display">
+    <header>Greetings</header>
+    <body>Hi %s</body>
+  </screen>
+
+  <screen id="goodbye" type="display">
+    <header>Goodbye</header>
+    <body>Sad to see you go</body>
+  </screen>
+</ussd-app>
