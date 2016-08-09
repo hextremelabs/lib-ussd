@@ -29,7 +29,7 @@ import static com.hextremelabs.ussd.ui.model.ScreenType.DISPLAY;
  * JAX-RS endpoint for receiving and processing HTTP requests (SMS/USSD) from telco. The request is assumed to come with
  * parameters {@code sessionid}, {@code msisdn}, {@code provider} and {@code message}.
  *
- * This endpoint becomes available at {@code http(s)://server_address:port/context_root/jax-rs_root/endpoint}
+ * This endpoint becomes available at {@code http(s)://{server_address}:{port}/{context_root}/ussd/endpoint}
  *
  * @author Sayo Oladeji
  */
