@@ -4,17 +4,25 @@
 // Any modifications to this file will be lost upon recompilation of the source schema. 
 // Generated on: 2016.08.09 at 04:30:04 AM WAT 
 //
+
+
 package com.hextremelabs.ussd.ui.model;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * <p>Java class for anonymous complex type.
- * <p>
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -58,6 +66,8 @@ import java.util.List;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -66,121 +76,140 @@ import java.util.List;
 @XmlRootElement(name = "ussd-app")
 public class UssdApp {
 
-  @XmlElement(required = true)
-  protected List<Screen> screen;
-  @XmlAttribute(name = "name", required = true)
-  protected String name;
-  @XmlAttribute(name = "lineSeparator")
-  protected String lineSeparator;
-  @XmlAttribute(name = "errorMessage")
-  protected String errorMessage;
-  @XmlAttribute(name = "maxTextLength")
-  protected Byte maxTextLength;
+    @XmlElement(required = true)
+    protected List<Screen> screen;
+    @XmlAttribute(name = "name", required = true)
+    protected String name;
+    @XmlAttribute(name = "lineSeparator")
+    protected String lineSeparator;
+    @XmlAttribute(name = "errorMessage")
+    protected String errorMessage;
+    @XmlAttribute(name = "maxTextLength")
+    protected Byte maxTextLength;
 
-  /**
-   * Gets the value of the screen property.
-   * <p>
-   * <p>
-   * This accessor method returns a reference to the live list,
-   * not a snapshot. Therefore any modification you make to the
-   * returned list will be present inside the JAXB object.
-   * This is why there is not a <CODE>set</CODE> method for the screen property.
-   * <p>
-   * <p>
-   * For example, to add a new item, do as follows:
-   * <pre>
-   *    getScreen().add(newItem);
-   * </pre>
-   * <p>
-   * <p>
-   * <p>
-   * Objects of the following type(s) are allowed in the list
-   * {@link Screen }
-   */
-  public List<Screen> getScreen() {
-    if (screen == null) {
-      screen = new ArrayList<Screen>();
+    /**
+     * Gets the value of the screen property.
+     *
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the screen property.
+     *
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getScreen().add(newItem);
+     * </pre>
+     *
+     *
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link Screen }
+     *
+     *
+     */
+    public List<Screen> getScreen() {
+        if (screen == null) {
+            screen = new ArrayList<Screen>();
+        }
+        return this.screen;
     }
-    return this.screen;
-  }
 
-  /**
-   * Gets the value of the name property.
-   *
-   * @return possible object is
-   * {@link String }
-   */
-  public String getName() {
-    return name;
-  }
+    /**
+     * Gets the value of the name property.
+     *
+     * @return
+     *     possible object is
+     *     {@link String }
+     *
+     */
+    public String getName() {
+        return name;
+    }
 
-  /**
-   * Sets the value of the name property.
-   *
-   * @param value allowed object is
-   *              {@link String }
-   */
-  public void setName(String value) {
-    this.name = value;
-  }
+    /**
+     * Sets the value of the name property.
+     *
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *
+     */
+    public void setName(String value) {
+        this.name = value;
+    }
 
-  /**
-   * Gets the value of the lineSeparator property.
-   *
-   * @return possible object is
-   * {@link String }
-   */
-  public String getLineSeparator() {
-    return lineSeparator;
-  }
+    /**
+     * Gets the value of the lineSeparator property.
+     *
+     * @return
+     *     possible object is
+     *     {@link String }
+     *
+     */
+    public String getLineSeparator() {
+        return lineSeparator;
+    }
 
-  /**
-   * Sets the value of the lineSeparator property.
-   *
-   * @param value allowed object is
-   *              {@link String }
-   */
-  public void setLineSeparator(String value) {
-    this.lineSeparator = value;
-  }
+    /**
+     * Sets the value of the lineSeparator property.
+     *
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *
+     */
+    public void setLineSeparator(String value) {
+        this.lineSeparator = value;
+    }
 
-  /**
-   * Gets the value of the errorMessage property.
-   *
-   * @return possible object is
-   * {@link String }
-   */
-  public String getErrorMessage() {
-    return errorMessage;
-  }
+    /**
+     * Gets the value of the errorMessage property.
+     *
+     * @return
+     *     possible object is
+     *     {@link String }
+     *
+     */
+    public String getErrorMessage() {
+        return errorMessage;
+    }
 
-  /**
-   * Sets the value of the errorMessage property.
-   *
-   * @param value allowed object is
-   *              {@link String }
-   */
-  public void setErrorMessage(String value) {
-    this.errorMessage = value;
-  }
+    /**
+     * Sets the value of the errorMessage property.
+     *
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *
+     */
+    public void setErrorMessage(String value) {
+        this.errorMessage = value;
+    }
 
-  /**
-   * Gets the value of the maxTextLength property.
-   *
-   * @return possible object is
-   * {@link Byte }
-   */
-  public Byte getMaxTextLength() {
-    return maxTextLength;
-  }
+    /**
+     * Gets the value of the maxTextLength property.
+     *
+     * @return
+     *     possible object is
+     *     {@link Byte }
+     *
+     */
+    public Byte getMaxTextLength() {
+        return maxTextLength;
+    }
 
-  /**
-   * Sets the value of the maxTextLength property.
-   *
-   * @param value allowed object is
-   *              {@link Byte }
-   */
-  public void setMaxTextLength(Byte value) {
-    this.maxTextLength = value;
-  }
+    /**
+     * Sets the value of the maxTextLength property.
+     *
+     * @param value
+     *     allowed object is
+     *     {@link Byte }
+     *
+     */
+    public void setMaxTextLength(Byte value) {
+        this.maxTextLength = value;
+    }
+
 }

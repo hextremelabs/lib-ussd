@@ -2,7 +2,7 @@ package com.hextremelabs.ussd.dto;
 
 /**
  * Value object representing HTTP request from telco. Request comes in like this:
- * provider=airtel&msisdn=2348024675639&sessionid=14568284374231393&message=*833*400
+ * provider=airtel&amp;msisdn=2348024675639&amp;sessionid=14568284374231393&amp;message={@literal *}833{@literal *}400#
  *
  * @author Oluremi Adekanmbi
  * @author Sayo Oladeji
