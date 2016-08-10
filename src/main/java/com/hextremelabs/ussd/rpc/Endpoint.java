@@ -6,6 +6,7 @@ import com.hextremelabs.ussd.exception.UINavigationException;
 import com.hextremelabs.ussd.exception.ValidationException;
 import com.hextremelabs.ussd.handler.UssdHandler;
 import com.hextremelabs.ussd.internal.Internal;
+import com.hextremelabs.ussd.internal.Internal.Log;
 import com.hextremelabs.ussd.internal.VisibleForTesting;
 import com.hextremelabs.ussd.session.Session;
 import com.hextremelabs.ussd.session.SessionManager;
@@ -15,8 +16,13 @@ import com.hextremelabs.ussd.ui.model.Screen;
 import com.hextremelabs.ussd.ui.model.Validation;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
@@ -24,6 +30,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.hextremelabs.ussd.ui.model.ScreenType.DISPLAY;
+
+;
 
 /**
  * JAX-RS endpoint for receiving and processing HTTP requests (SMS/USSD) from telco. The request is assumed to come with
@@ -36,20 +44,31 @@ import static com.hextremelabs.ussd.ui.model.ScreenType.DISPLAY;
 @Path("endpoint")
 public class Endpoint {
 
-  private final UssdHandler handler;
-  private final SessionManager sessionManager;
-  private final UIManager uiManager;
-  private final String errorMessage;
+  @Inject
+  private UssdHandler handler;
 
   @Inject
-  Endpoint(UssdHandler handler, SessionManager sessionManager, UIManager uiManager) {
+  private SessionManager sessionManager;
+
+  @Inject
+  private UIManager uiManager;
+
+  @Inject
+  @Named("errorMessage")
+  private String errorMessage;
+
+  public Endpoint() {
+  }
+
+  @Inject
+  public Endpoint(UssdHandler handler, SessionManager sessionManager, UIManager uiManager) {
     this.handler = handler;
     this.sessionManager = sessionManager;
     this.uiManager = uiManager;
     this.errorMessage = uiManager.getErrorMessage();
   }
 
-  @Internal.Log
+  @Log
   @GET
   @Path("")
   @Produces("text/html;charset=UTF-8")
@@ -57,7 +76,7 @@ public class Endpoint {
     return handleRequest(handler.parseRequest(request));
   }
 
-  @Internal.Log
+  @Log
   @POST
   @Path("")
   @Consumes(MediaType.WILDCARD)

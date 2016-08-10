@@ -19,10 +19,17 @@ public class SessionManager {
 
   private static final int FIVE_MINUTES = 5 * 60_000;
 
-  private final String appName;
-  private final String reverseQuery;
+  @Inject
+  @Named("appName")
+  private String appName;
+  private String reverseQuery;
 
-  final Cache cache;
+  @Inject
+  private Cache cache;
+
+  public SessionManager(){
+    this.reverseQuery = appName + "_reverse";
+  }
 
   @Inject
   public SessionManager(@Named("appName") String appName, Cache cache) {

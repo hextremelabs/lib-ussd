@@ -2,7 +2,7 @@ package com.hextremelabs.ussd.rpc;
 
 import com.hextremelabs.ussd.exception.ValidationException;
 import com.hextremelabs.ussd.handler.UssdHandler;
-import com.hextremelabs.ussd.internal.Internal;
+import com.hextremelabs.ussd.internal.Internal.MapCache;
 import com.hextremelabs.ussd.session.SessionManager;
 import com.hextremelabs.ussd.ui.manager.UIManager;
 import com.hextremelabs.ussd.ui.model.Screen;
@@ -15,9 +15,14 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import static com.hextremelabs.ussd.ui.model.Validation.*;
+import static com.hextremelabs.ussd.ui.model.Validation.ALPHANUMERIC;
+import static com.hextremelabs.ussd.ui.model.Validation.FREE;
+import static com.hextremelabs.ussd.ui.model.Validation.NUMERIC;
+import static com.hextremelabs.ussd.ui.model.Validation.REGEX;
 import static java.util.Arrays.asList;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -32,7 +37,7 @@ public class EndpointTest {
   @Before
   public void setup() throws IOException {
     handler = new DummyHandler();
-    SessionManager sessionManager = new SessionManager("USSD_APP", new Internal.MapCache());
+    SessionManager sessionManager = new SessionManager("USSD_APP", new MapCache());
     UIManager uiManager = new UIManager();
     endpoint = new Endpoint(handler, sessionManager, uiManager);
   }

@@ -228,12 +228,12 @@ public class Internal {
       boolean secure = (!DataHelper.hasBlank(log) && log.secure());
       Object[] params = new Object[]{clazz.getName(), ic.getMethod().getName(),
         Joiner.on(", ").useForNull("").join(ic.getParameters())};
-      L.info("Entering - {}#{} : " + (secure ? "*****" : "{}"), ic.getMethod().getDeclaringClass().getSimpleName(),
+      L.debug("Entering - {}#{} : " + (secure ? "*****" : "{}"), ic.getMethod().getDeclaringClass().getSimpleName(),
           ic.getMethod().getName(), params);
 
       Object result = ic.proceed();
       params[2] = result;
-      L.info("Exiting - {}#{} : " + (secure ? "*****" : "{}"), ic.getMethod().getDeclaringClass().getSimpleName(),
+      L.debug("Exiting - {}#{} : " + (secure ? "*****" : "{}"), ic.getMethod().getDeclaringClass().getSimpleName(),
           ic.getMethod().getName(), result);
 
       return result;
