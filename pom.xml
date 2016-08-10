@@ -10,14 +10,35 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
+  <name>${project.groupId}:${project.artifactId}</name>
+  <description>A lightweight USSD application framework</description>
+  <url>http://www.hextremelabs.com/</url>
+
+  <licenses>
+    <license>
+      <name>Apache License 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>Sayo Oladeji</name>
+      <email>oluwasayo@hextremelabs.com</email>
+      <organization>Hextremelabs</organization>
+      <organizationUrl>http://www.hextremelabs.com</organizationUrl>
+    </developer>
+  </developers>
+
   <scm>
     <connection>scm:git:https://github.com/hextremelabs/lib-ussd.git</connection>
+    <developerConnection>scm:git:https://github.com/hextremelabs/lib-ussd.git</developerConnection>
     <url>https://github.com/hextremelabs/lib-ussd.git</url>
   </scm>
 
   <ciManagement>
     <system>bamboo</system>
-    <url>https://hextremelabs.atlassian.net/builds/browse/LIB-U</url>
+    <url>https://hextremelabs.atlassian.net/builds/browse/LU-LU</url>
   </ciManagement>
 
   <properties>
