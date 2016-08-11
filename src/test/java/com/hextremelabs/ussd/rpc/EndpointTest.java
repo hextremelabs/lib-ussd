@@ -54,6 +54,12 @@ public class EndpointTest {
 
     when(httpRequest.getParameter("message")).thenReturn("1");
     assertEquals("Lib-USSD~What is your name?", endpoint.handleRequest(handler.parseRequest(httpRequest)));
+
+    when(httpRequest.getParameter("message")).thenReturn("#"); // Back button.
+    assertEquals("Welcome~1. Greet Me~2. Exit", endpoint.handleRequest(handler.parseRequest(httpRequest)));
+
+    when(httpRequest.getParameter("message")).thenReturn("1");
+    assertEquals("Lib-USSD~What is your name?", endpoint.handleRequest(handler.parseRequest(httpRequest)));
     when(httpRequest.getParameter("message")).thenReturn("Sayo");
     assertEquals("Greetings~Hi Sayo", endpoint.handleRequest(handler.parseRequest(httpRequest)));
 
@@ -64,7 +70,10 @@ public class EndpointTest {
     assertEquals("Goodbye~Sad to see you go", endpoint.handleRequest(handler.parseRequest(httpRequest)));
 
     // Goodbye page with is a DISPLAY page terminates the session.
-    assertEquals("Welcome~1. Greet Me~2. Exit", endpoint.handleRequest(handler.parseRequest(httpRequest)));
+    when(httpRequest.getParameter("message")).thenReturn("*556*2#");
+    assertEquals("Goodbye~Sad to see you go", endpoint.handleRequest(handler.parseRequest(httpRequest)));
+
+
   }
 
   @Test

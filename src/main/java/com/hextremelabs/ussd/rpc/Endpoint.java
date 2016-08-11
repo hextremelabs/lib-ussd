@@ -7,6 +7,7 @@ import com.hextremelabs.ussd.exception.ValidationException;
 import com.hextremelabs.ussd.handler.UssdHandler;
 import com.hextremelabs.ussd.internal.Internal;
 import com.hextremelabs.ussd.internal.Internal.Log;
+import com.hextremelabs.ussd.internal.Internal.Pair;
 import com.hextremelabs.ussd.internal.VisibleForTesting;
 import com.hextremelabs.ussd.session.Session;
 import com.hextremelabs.ussd.session.SessionManager;
@@ -91,14 +92,31 @@ public class Endpoint {
     List<String> commands = parse(request.getMessage());
     if (session == null) {
       session = new Session(request);
-      session.pushScreen(uiManager.getHomeScreen(), uiManager.render(uiManager.getHomeScreen(), null));
+      session.pushScreen(uiManager.getHomeScreen(), uiManager.render(uiManager.getHomeScreen()));
       if (commands.size() == 1) {
         if (uiManager.getHomeScreen().getType() != DISPLAY) {
           sessionManager.putSession(session);
         }
 
-        return uiManager.render(uiManager.getHomeScreen());
+        return session.peekLastScreen().getValue();
       }
+    }
+
+    if (commands.size() == 1 && "#".equals(commands.get(0))) {
+      System.out.println("###: " + session.getNavigation());
+      session.pollLastScreen();
+      final Pair<Screen, String> lastScreen = session.peekLastScreen();
+      if (lastScreen != null) {
+        return lastScreen.getValue();
+      }
+
+      session.pushScreen(uiManager.getHomeScreen(), uiManager.render(uiManager.getHomeScreen()));
+      sessionManager.putSession(session);
+      return session.peekLastScreen().getValue();
+    }
+
+    if (commands.size() > 1) {
+      commands.remove(0);
     }
 
     String result = null;
@@ -172,11 +190,14 @@ public class Endpoint {
     }
 
     screen = session.peekLastScreen().getKey();
+    session.peekLastScreen().setValue(uiManager.render(screen, executionResult));
     if (screen.getType() == DISPLAY) {
       sessionManager.invalidate(session);
+    } else {
+      sessionManager.putSession(session);
     }
 
-    return uiManager.render(screen, executionResult);
+    return session.peekLastScreen().getValue();
   }
 
   @VisibleForTesting
