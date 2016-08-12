@@ -32,8 +32,6 @@ import java.util.List;
 
 import static com.hextremelabs.ussd.ui.model.ScreenType.DISPLAY;
 
-;
-
 /**
  * JAX-RS endpoint for receiving and processing HTTP requests (SMS/USSD) from telco. The request is assumed to come with
  * parameters {@code sessionid}, {@code msisdn}, {@code provider} and {@code message}.
