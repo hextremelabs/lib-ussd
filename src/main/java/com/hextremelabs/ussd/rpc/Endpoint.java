@@ -15,6 +15,8 @@ import com.hextremelabs.ussd.ui.manager.UIManager;
 import com.hextremelabs.ussd.ui.model.Option;
 import com.hextremelabs.ussd.ui.model.Screen;
 import com.hextremelabs.ussd.ui.model.Validation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -42,6 +44,9 @@ import static com.hextremelabs.ussd.ui.model.ScreenType.DISPLAY;
  */
 @Path("endpoint")
 public class Endpoint {
+
+  private static final Logger L = LoggerFactory.getLogger(Endpoint.class);
+
 
   @Inject
   private UssdHandler handler;
@@ -72,7 +77,13 @@ public class Endpoint {
   @Path("")
   @Produces("text/html;charset=UTF-8")
   public String handleGet(@Context HttpServletRequest request) {
-    return handleRequest(handler.parseRequest(request));
+    final UssdRequest ussdRequest = handler.parseRequest(request);
+    try {
+      return handleRequest(ussdRequest);
+    } catch (Exception ex) {
+      L.info("Error occured while handling request: {}", ussdRequest, ex);
+      return errorMessage;
+    }
   }
 
   @Log
@@ -81,7 +92,13 @@ public class Endpoint {
   @Consumes(MediaType.WILDCARD)
   @Produces("text/html;charset=UTF-8")
   public String handlePost(@Context HttpServletRequest request) {
-    return handleRequest(handler.parseRequest(request));
+    final UssdRequest ussdRequest = handler.parseRequest(request);
+    try {
+      return handleRequest(ussdRequest);
+    } catch (Exception ex) {
+      L.info("Error occured while handling request: {}", ussdRequest, ex);
+      return errorMessage;
+    }
   }
 
   @VisibleForTesting
