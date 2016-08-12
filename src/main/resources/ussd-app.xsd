@@ -148,7 +148,7 @@
                 <xs:annotation>
                   <xs:appinfo>Body</xs:appinfo>
                   <xs:documentation xml:lang="en">
-                    The text at the center of the page.
+                    The text at the middle of the page.
                   </xs:documentation>
                 </xs:annotation>
               </xs:element>
@@ -163,7 +163,7 @@
             </xs:sequence>
             <xs:attribute type="xs:string" name="id" use="required">
               <xs:annotation>
-                <xs:appinfo>Error Message</xs:appinfo>
+                <xs:appinfo>ID</xs:appinfo>
                 <xs:documentation xml:lang="en">
                   Identifies a screen. Other screens or menus leading to this screen reference this id.
                 </xs:documentation>
@@ -197,7 +197,7 @@
             </xs:attribute>
             <xs:attribute type="xs:string" name="callback" use="optional">
               <xs:annotation>
-                <xs:appinfo>Error Message</xs:appinfo>
+                <xs:appinfo>Callback</xs:appinfo>
                 <xs:documentation xml:lang="en">
                   The operation invoked when the user completes this screen. All the data and results gathered so far in
                   the user's session is passed along with the callback name to the callback handler for execution.
