@@ -29,7 +29,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static com.hextremelabs.ussd.ui.model.ScreenType.DISPLAY;
@@ -159,7 +159,7 @@ public class Endpoint {
   @VisibleForTesting
   List<String> parse(String message) {
     if (message.length() == 1) {
-      return Arrays.asList(message);
+      return Collections.singletonList(message);
     }
 
     List<String> commands = new ArrayList<>();

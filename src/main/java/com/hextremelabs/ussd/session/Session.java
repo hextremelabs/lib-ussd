@@ -1,7 +1,7 @@
 package com.hextremelabs.ussd.session;
 
 import com.hextremelabs.ussd.dto.UssdRequest;
-import com.hextremelabs.ussd.internal.Internal;
+import com.hextremelabs.ussd.internal.Internal.Pair;
 import com.hextremelabs.ussd.ui.model.Screen;
 
 import java.io.Serializable;
@@ -10,6 +10,8 @@ import java.util.Date;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.hextremelabs.ussd.internal.Internal.currentDate;
 
 /**
  * Represents a user's session.
@@ -24,7 +26,7 @@ public class Session implements Serializable {
   private final String msisdn;
   private final String provider;
 
-  private final Deque<Internal.Pair<Screen, String>> navigation;
+  private final Deque<Pair<Screen, String>> navigation;
   private final Map<String, Object> data;
 
   private final Date timestamp;
@@ -35,7 +37,7 @@ public class Session implements Serializable {
     this.provider = request.getProvider();
     this.navigation = new ArrayDeque<>();
     this.data = new HashMap<>();
-    this.timestamp = Internal.currentDate();
+    this.timestamp = currentDate();
   }
 
   public String getId() {
@@ -50,7 +52,7 @@ public class Session implements Serializable {
     return provider;
   }
 
-  public Deque<Internal.Pair<Screen, String>> getNavigation() {
+  public Deque<Pair<Screen, String>> getNavigation() {
     return navigation;
   }
 
@@ -59,18 +61,18 @@ public class Session implements Serializable {
   }
 
   public void pushScreen(Screen screen) {
-    navigation.push(Internal.Pair.newMutablePairOf(screen, null));
+    navigation.push(Pair.newMutablePairOf(screen, null));
   }
 
   public void pushScreen(Screen screen, String renderedScreen) {
-    navigation.push(Internal.Pair.newImmutablePairOf(screen, renderedScreen));
+    navigation.push(Pair.newImmutablePairOf(screen, renderedScreen));
   }
 
-  public Internal.Pair<Screen, String> peekLastScreen() {
+  public Pair<Screen, String> peekLastScreen() {
     return navigation.peek();
   }
 
-  public Internal.Pair<Screen, String> pollLastScreen() {
+  public Pair<Screen, String> pollLastScreen() {
     return navigation.poll();
   }
 
@@ -84,6 +86,7 @@ public class Session implements Serializable {
 
   @Override
   public String toString() {
-    return "Session{" + "id=" + id + ", msisdn=" + msisdn + ", provider=" + provider + ", navigation=" + navigation + ", data=" + data + ", timestamp=" + timestamp + '}';
+    return "Session{" + "id=" + id + ", msisdn=" + msisdn + ", provider=" + provider + ", navigation=" + navigation
+        + ", data=" + data + ", timestamp=" + timestamp + '}';
   }
 }

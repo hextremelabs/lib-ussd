@@ -9,10 +9,10 @@ package com.hextremelabs.ussd.dto;
  */
 public class UssdRequest {
 
-  private String provider;
-  private String msisdn;
-  private String sessionId;
-  private String message;
+  private final String provider;
+  private final String msisdn;
+  private final String sessionId;
+  private final String message;
 
 
   public UssdRequest(String provider, String msisdn, String sessionId, String message) {

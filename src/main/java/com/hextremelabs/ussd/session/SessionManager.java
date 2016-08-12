@@ -22,7 +22,7 @@ public class SessionManager {
   @Inject
   @Named("appName")
   private String appName;
-  private String reverseQuery;
+  private final String reverseQuery;
 
   @Inject
   private Cache cache;

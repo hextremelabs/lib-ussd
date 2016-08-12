@@ -12,6 +12,7 @@ import org.mockito.ArgumentMatcher;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -79,25 +80,25 @@ public class EndpointTest {
   @Test
   public void parse() throws Exception {
     List<String> res = endpoint.parse("*556#");
-    assertThat(asList("556"), new ListEqualityMatcher<String>(res));
+    assertThat(Collections.singletonList("556"), new ListEqualityMatcher<>(res));
     res = endpoint.parse("#556#");
-    assertThat(asList("556"), new ListEqualityMatcher<String>(res));
+    assertThat(Collections.singletonList("556"), new ListEqualityMatcher<>(res));
     res = endpoint.parse("*556*1*2#");
-    assertThat(asList("556", "1", "2"), new ListEqualityMatcher<String>(res));
+    assertThat(asList("556", "1", "2"), new ListEqualityMatcher<>(res));
     res = endpoint.parse("#556*1*2#");
-    assertThat(asList("556", "1", "2"), new ListEqualityMatcher<String>(res));
+    assertThat(asList("556", "1", "2"), new ListEqualityMatcher<>(res));
     res = endpoint.parse("#");
-    assertThat(asList("#"), new ListEqualityMatcher<String>(res));
+    assertThat(Collections.singletonList("#"), new ListEqualityMatcher<>(res));
     res = endpoint.parse("2");
-    assertThat(asList("2"), new ListEqualityMatcher<String>(res));
+    assertThat(Collections.singletonList("2"), new ListEqualityMatcher<>(res));
     res = endpoint.parse("My command");
-    assertThat(asList("My command"), new ListEqualityMatcher<String>(res));
+    assertThat(Collections.singletonList("My command"), new ListEqualityMatcher<>(res));
     res = endpoint.parse("*556");
-    assertThat(asList("556"), new ListEqualityMatcher<String>(res));
+    assertThat(Collections.singletonList("556"), new ListEqualityMatcher<>(res));
     res = endpoint.parse("*556*2*");
-    assertThat(asList("556", "2"), new ListEqualityMatcher<String>(res));
+    assertThat(asList("556", "2"), new ListEqualityMatcher<>(res));
     res = endpoint.parse("*556*2*3");
-    assertThat(asList("556", "2", "3"), new ListEqualityMatcher<String>(res));
+    assertThat(asList("556", "2", "3"), new ListEqualityMatcher<>(res));
 
   }
 
@@ -158,7 +159,7 @@ public class EndpointTest {
 
   private class ListEqualityMatcher<T> extends ArgumentMatcher<List<T>> {
 
-    List<T> thisList;
+    final List<T> thisList;
 
     private ListEqualityMatcher(List<T> thisList) {
       this.thisList = thisList;

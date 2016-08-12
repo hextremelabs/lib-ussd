@@ -88,7 +88,7 @@ public class Internal {
     }
 
     static <K, V> MutablePair<K, V> of(final K key, final V value) {
-      return new MutablePair<K, V>(key, value);
+      return new MutablePair<>(key, value);
     }
 
     @Override
@@ -130,7 +130,7 @@ public class Internal {
     }
 
     public static <K, V> ImmutablePair<K, V> of(final K key, final V value) {
-      return new ImmutablePair<K, V>(key, value);
+      return new ImmutablePair<>(key, value);
     }
 
     @Override
@@ -185,9 +185,7 @@ public class Internal {
       }
 
       StringBuilder sb = new StringBuilder();
-      argMap.keySet().stream().forEach((entry) -> {
-        sb.append(entry).append(" = ").append(argMap.get(entry)).append(", ");
-      });
+      argMap.keySet().forEach((entry) -> sb.append(entry).append(" = ").append(argMap.get(entry)).append(", "));
       if (sb.length() > 1) {
         sb.delete(sb.length() - 2, sb.length());
       }
@@ -196,9 +194,6 @@ public class Internal {
 
     /**
      * Use at your own risk. This may kill your kitten or blow up your Playstation.
-     *
-     * @param args
-     * @return
      */
     public static Map<String, Object> build(Object... args) {
       Map<String, Object> result = new HashMap<>();
@@ -617,7 +612,7 @@ public class Internal {
   @ApplicationScoped
   public static class MapCache extends AbstractCache implements Serializable {
 
-    private static final long serialVersionUID = 1l;
+    private static final long serialVersionUID = 1L;
     private static final Logger L = LoggerFactory.getLogger(MapCache.class);
 
     private static final int CACHE_CLEANUP_INTERVAL = 5;
@@ -705,11 +700,9 @@ public class Internal {
 
     @Override
     public void clearAllInstancesOfNamespace(String namespace) {
-      for (String tenant : CACHE.keySet()) {
-        if (CACHE.get(tenant).containsKey(namespace)) {
-          CACHE.get(tenant).get(namespace).clear();
-        }
-      }
+      CACHE.keySet().stream().filter(tenant -> CACHE.get(tenant).containsKey(namespace)).forEach(tenant -> {
+        CACHE.get(tenant).get(namespace).clear();
+      });
     }
 
     @Override
@@ -730,11 +723,9 @@ public class Internal {
 
     @Override
     public boolean isPresent(String key, String tenant, String namespace) {
-      if (CACHE.containsKey(tenant) && (CACHE.get(tenant).containsKey(namespace))) {
-        return CACHE.get(tenant).get(namespace).containsKey(key);
-      }
-
-      return false;
+      return CACHE.containsKey(tenant)
+          && (CACHE.get(tenant).containsKey(namespace))
+          && CACHE.get(tenant).get(namespace).containsKey(key);
     }
 
     private class Cleaner implements Runnable {
