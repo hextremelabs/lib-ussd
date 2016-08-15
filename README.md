@@ -141,3 +141,4 @@ Anyway, if you've got no chill here's the gist:
   * USSD session resumption is supported using the user's `msisdn`.
   * If the user doesn't reach the end of a flow, the session is invalidated after 5 minutes of inactivity.
   * *lib-ussd* is just 53kb and only expects `javaee-web-api`, `javax.enterprise.concurrent-api` and `slf4j-api` to be available on the classpath at runtime. An application server like WildFly supplies these out of the box.
+  * *lib-ussd* uses an in-memory key-value datastructure (local to a single host) for caching sessions. To supply a more sophisticated cache, provide an injectable bean implementing `com.hextremelabs.ussd.internal.Internal.Cache`.
