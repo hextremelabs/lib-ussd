@@ -21,9 +21,9 @@ IDE
 Alternatively, you can create the sample project from within your favorite IDE. 
 On NetBeans for example, click `File` -> `New Project` -> `Maven` -> `Project from Archetype`. Then search for `ussd-app-archetype`.
 
-![alt Click `File -> New Project`](http://dev.hextremelabs.net/lib-ussd_mvn_1)
-![alt Click `Maven -> Project from Archetype`](http://dev.hextremelabs.net/lib-ussd_mvn_1)
-![alt Search for `ussd-app-archetype`](http://dev.hextremelabs.net/lib-ussd_mvn_1)
+![File | New Project](http://dev.hextremelabs.net/lib-ussd_mvn_1.png)
+![Maven | Project from Archetype](http://dev.hextremelabs.net/lib-ussd_mvn_2.png)
+![Search for ussd-app-archetype](http://dev.hextremelabs.net/lib-ussd_mvn_3.png)
 
 Starting From Scratch
 ---------------------
