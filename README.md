@@ -106,7 +106,7 @@ Even better is it that you read [the well-documented schema](http://dev.hextreme
 Anyway, if you've got no chill here's the gist:
 
 * `ussd-app`: this is the root tag and it has the following attributes:
-  * `name`: the name of this USSD application. Think of it as Angular's `ng-app` :)
+  * `name`: the name of this USSD application. This is used as the cache namespace when storing sessions. You can think of it as Angular's `ng-app` :)
   * `lineSeparator`: the end-of-line character or character sequence used by the telco. Default is `~`.
   * `errorMessage`: the response returned to the user if an error occurs while performing an operation. Such errors terminate the user's session. Default is `Operation failed. Please try again later.`
   * `maxTextLength`: the maximum length of a USSD response supported by the telco. Default is 140 characters.
