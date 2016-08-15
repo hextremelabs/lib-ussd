@@ -19,11 +19,21 @@ As this is a Maven project, you can open it in your favorite IDE to start crafti
 IDE
 ---
 Alternatively, you can create the sample project from within your favorite IDE. 
-On NetBeans for example, click `File` -> `New Project` -> `Maven` -> `Project from Archetype`. Then search for `ussd-app-archetype`.
+On NetBeans for example:
 
-<img src="http://dev.hextremelabs.net/lib-ussd_mvn_1.png" alt="File -> New Project" style="width: 200px;"/>
-<img src="http://dev.hextremelabs.net/lib-ussd_mvn_2.png" alt="Maven -> Project from Archetype" style="width: 300px;"/>
-<img src="http://dev.hextremelabs.net/lib-ussd_mvn_3.png" alt="Search for ussd-app-archetype" style="width: 300px;"/>
+Click `File` -> `New Project`
+
+![File | New Project](http://dev.hextremelabs.net/lib-ussd_mvn_1_r.png)
+
+
+Click `Maven` -> `Project from Archetype`
+
+![Maven | Project from Archetype](http://dev.hextremelabs.net/lib-ussd_mvn_2_r.png)
+
+
+Search for `ussd-app-archetype`
+
+![Search for ussd-app-archetype](http://dev.hextremelabs.net/lib-ussd_mvn_3_r.png)
 
 Starting From Scratch
 ---------------------
