@@ -89,18 +89,19 @@ public String[] callbackName(Map<String, Object> data) {
 ```
 If no such method exists, an `InvocationException` is thrown which results in the value of the `errorMessage` attribute defined in the `ussd-app` XML root tag being returned to the user.
 If `errorMessage` is not defined a default error message is returned. 
-If you want to customize how the handler dispatches calls to callbacks you can override `UssdHandler`'s invoke method.
+If you want to customize how the handler dispatches calls to callbacks you can override `UssdHandler`'s `invoke` method.
 
 The elements of the `String[]` returned by callbacks are used to inflate the template of the `nextScreen` when rendering.
 If a callback returns `["Sayo", "Oladeji"]` and `nextScreen` targets a screen with content `I am %s, son of %s`, the screen will be rendered as `I am Sayo, son of Oladeji.`
-Rendered screens are cached and returned whenever the user reques to go back to the previous screen using the `#` key.
+Rendered screens are cached and returned whenever the user requests to go back to the previous screen using the `#` key.
 
-`<screen>`s with attribute `type="textInput` (see below) accept input from users (e.g "Please enter your account number").
-All inputs received throughout a session are mapped as `"screenId" -> input`. All results of callbacks are mapped as `"screenId$Result" -> result`. Everytime a callback is invoked, the entire mapping is passed to it. It is the responsibility of the callback to pick the data it needs from this mapping (see the `Handler.greetMe()` method for example).
+`<screen>`s with attribute `type="textInput"` (see below) accept input from users (e.g "Please enter your account number").
+All inputs received throughout a session are mapped as `"screenId" -> input`. All results of callbacks are mapped as `"screenId$Result" -> result`. Every time a callback is invoked, the entire mapping is passed to it.
+It is the responsibility of the callback to pick the data it needs from this mapping (see the `Handler.greetMe` method for example).
 
 UI Elements
 -----------
-The UI framework is extremely simple. It's highly recommended that you play around with the XML in your IDE by invoking its autocomplete/intellisense to see the things it suggests.
+The UI framework is extremely simple. It's highly recommended that you play around with the XML in your IDE by invoking its intellisense to see the things it suggests.
 Even better is it that you read [the well-documented schema](http://dev.hextremelabs.net/ussd-app.xsd) backing the XML.
 
 Anyway, if you've got no chill here's the gist:
@@ -132,6 +133,7 @@ Anyway, if you've got no chill here's the gist:
   * `body`: text rendered at the middle of the screen.
   * `footer`: text rendered at the bottom of the screen.
   * `option`: for screens with `type="options"`. One or more instances of this element denoting each option.
+
   The values of every of these elements can carry a placeholder `%s`. An attempt is made to sequentially inflate these placeholders using the result of the callback of the previous screen.
 * `option`: an option in an enumerated list of options. This element has the following attributes:
   * `trigger`: the character that selects this option. This should be unique in the list (it is recommended to be a sequence of numbers starting from 1).
