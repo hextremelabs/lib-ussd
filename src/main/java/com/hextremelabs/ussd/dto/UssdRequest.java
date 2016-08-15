@@ -14,7 +14,6 @@ public class UssdRequest {
   private final String sessionId;
   private final String message;
 
-
   public UssdRequest(String provider, String msisdn, String sessionId, String message) {
     this.provider = provider;
     this.msisdn = msisdn;
