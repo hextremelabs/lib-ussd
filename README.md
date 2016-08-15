@@ -123,6 +123,7 @@ Anyway, if you've got no chill here's the gist:
     * `numeric`: only numeric values (0 to 9) are allowed.
     * `alphanumeric`: only alphanumeric values (a to z, A to Z, 0 to 9) are allowed.
     * `regex`: the input is valudated against a specified regular expression.
+
     Default is `free`
   * `regex`: for screens with `validation="regex"`, the regular expression against with the input is validated.
   
