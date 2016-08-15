@@ -1,6 +1,11 @@
 package com.hextremelabs.ussd.session;
 
+import com.hextremelabs.ussd.internal.Internal.MapCache;
+
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Any;
+import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -25,6 +30,9 @@ public class SessionManager {
   private final String reverseQuery;
 
   @Inject
+  @Any
+  private Instance<Cache> candidateCaches;
+
   private Cache cache;
 
   public SessionManager(){
@@ -36,6 +44,19 @@ public class SessionManager {
     this.appName = appName;
     reverseQuery = appName + "_reverse";
     this.cache = cache;
+  }
+
+  @PostConstruct
+  private void setup() {
+    Cache lastResort = null;
+    for (Cache candidate : candidateCaches) {
+      if (!(candidate instanceof MapCache)) {
+        this.cache = candidate;
+        return;
+      }
+      lastResort = candidate;
+    }
+    cache = lastResort;
   }
 
   public Session putSession(Session session) throws CacheException {
